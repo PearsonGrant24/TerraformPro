@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'hashicorp/terraform:1.7.5'
+            args '-u root:root'  //to avoid permissions issues
+        }
+    }
 
     environment {
         ENV = "dev" // Or parameterize this
@@ -16,7 +21,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                     dir("envs/${ENV}") {
-                        sh "terraform init -backend-config=backend.tfvars"
+                        sh "terraform init -backend-config=backend.tf"
                     }
                 }
             }
