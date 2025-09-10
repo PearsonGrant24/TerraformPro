@@ -21,7 +21,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                     dir("envs/${ENV}") {
-                        sh "terraform init -backend-config=backend.tf"
+                        sh "terraform init"
                     }
                 }
             }
