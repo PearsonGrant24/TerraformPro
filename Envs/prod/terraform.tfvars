@@ -1,0 +1,16 @@
+region               = "us-east-1"
+cidr_block           = "10.2.0.0/16"
+subnets              = ["10.2.1.0/24", "10.2.2.0/24"]
+availability_zones   = ["us-east-1a", "us-east-1b"]
+ami_id               = "ami-0861f4e788f5069dd"
+instance_type        = "t3.large"
+allocated_storage    = "100"
+storage_type         = "gp2"
+engine               = "mysql"
+engine_version       = "5.7"
+instance_class       = "db.t3.large"
+db_identifier        = "pract-db"
+username             = "practuser"
+password             = "practpassword"
+parameter_group_name = "default.mysql5.7"
+bucket_name          = "terraform-pract-122346"
