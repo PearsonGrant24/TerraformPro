@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'hashicorp/terraform:1.7.5'
-            args '-u root:root'  //to avoid permissions issues
+            args '-u root:root -v /var/jenkins_home:/var/jenkins_home' //to avoid permissions issues
         }
     }
 
