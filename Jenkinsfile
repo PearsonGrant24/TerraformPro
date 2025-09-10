@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YourUser/Terraform-practice.git'
+                git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
             }
         }
     }
