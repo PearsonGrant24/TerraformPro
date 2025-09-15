@@ -28,6 +28,7 @@ pipeline {
 
                 else
                     echo "bucket already extxt, skipping......"
+                fi
                 '''
             }
         }
