@@ -19,13 +19,7 @@ pipeline {
             }
         }
 
-        stage('Bootstrap s3 bucket'){
-            steps {
-                dir
-            }
-
-        }
-
+       
         stage('Terraform Init') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
