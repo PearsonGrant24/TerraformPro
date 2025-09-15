@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'hashicorp/terraform:1.7.5'
+            image 'my-terraform-awscli:1.7.5'
             args '--entrypoint=""' //to avoid permissions issues
         }
     }
@@ -17,6 +17,13 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
             }
+        }
+
+        stage('Bootstrap s3 bucket'){
+            steps {
+                dir
+            }
+
         }
 
         stage('Terraform Init') {
