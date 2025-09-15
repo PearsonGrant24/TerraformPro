@@ -12,12 +12,7 @@ pipeline {
 
     stages {
 
-        stage('Install Shell') {
-            steps {
-                sh "apk add --no-cache bash curl unzip"
-            }
-        }
-        
+                
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
