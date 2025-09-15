@@ -22,7 +22,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    dir("envs/${ENV}") {
+                    dir("Envs/${ENV}") {
                         sh "terraform init"
                     }
                 }
@@ -32,7 +32,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    dir("envs/${ENV}") {
+                    dir("Envs/${ENV}") {
                         sh "terraform plan -var-file=terraform.tfvars -out=tfplan"
                     }
                 }
@@ -51,7 +51,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                    dir("envs/${ENV}") {
+                    dir("Envs/${ENV}") {
                         sh "terraform apply -auto-approve tfplan"
                     }
                 }
