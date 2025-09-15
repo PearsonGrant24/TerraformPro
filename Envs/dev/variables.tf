@@ -29,14 +29,6 @@ variable "instance_type" {
   type = string
 }
 
-variable "allocated_storage" {
-  description = "allocated stor"
-}
-
-variable "storage type" {
-  description = "value"
-  type = string
-}
 
 # Rds
 variable "allocated_storage" {
