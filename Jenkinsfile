@@ -61,7 +61,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                     dir("Envs/${ENV}") {
                         sh "terraform apply -auto-approve tfplan"
                     }

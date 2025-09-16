@@ -3,7 +3,8 @@ output "vpc_id" {
 }
 
 output "subnet_ids" {
-  value = module.vpc.subnet_ids
+#   value = module.vpc.subnet_ids
+  value = module.vpc.subnets_ids
 }
 
 output "ec2_instance_id" {
@@ -11,9 +12,11 @@ output "ec2_instance_id" {
 }
 
 output "rds_instance_id" {
-  value = module.rds.db_instance_id
+#   value = module.rds.db_instance_id
+    value = module.rds.aws_db_instance_id
 }
 
 output "s3_bucket_id" {
-  value = module.s3.bucket_id
+#   value = module.s3.bucket_id
+    value = module.s3.aws_s3_bucket
 }
