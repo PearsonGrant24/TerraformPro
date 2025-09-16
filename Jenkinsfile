@@ -7,7 +7,8 @@ pipeline {
     }
 
     environment {
-        ENV = "dev" // Or parameterize this
+        ENV = "dev" //
+        AWS_DEFAULT_REGION = "us-east-1"
     }
 
     stages {
