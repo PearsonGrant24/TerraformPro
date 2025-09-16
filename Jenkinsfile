@@ -22,7 +22,7 @@ pipeline {
                     sh '''
                     echo "Creating bucket pract-terraform-122347..."
 
-                    aws s3api head-bucket --bucket pract-terraform-122347 || \
+                    
                     aws s3api create-bucket --bucket pract-terraform-122347 --region us-east-1
                     
                     '''
@@ -48,8 +48,7 @@ pipeline {
                         sh "terraform plan -var-file=terraform.tfvars -out=tfplan"
                     }
                 }
-            }
-        }
+            }        }
 
         stage('Approval for Prod') {
             when {
