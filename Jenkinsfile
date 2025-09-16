@@ -12,11 +12,10 @@ pipeline {
     }
 
     stages {
-
                 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
+                Checkout scm
             }
         }
 
@@ -27,7 +26,7 @@ pipeline {
                     string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     sh '''
-                        iaws s3api head-bucket --bucket pract-terraform-122347 || \
+                        aws s3api head-bucket --bucket pract-terraform-122347 || \
                         aws s3api create-bucket --bucket pract-terraform-122347 --region us-east-1
                     '''
                     }
