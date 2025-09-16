@@ -13,11 +13,6 @@ pipeline {
 
     stages {
                 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
 
         stage('Create s3 bucket of not existing'){
             steps {
