@@ -30,13 +30,12 @@ pipeline {
             }
         }
 
-       
 
         stage('Terraform Destroy') {
             steps {
                 withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                     dir("Envs/${ENV}") {
-                        sh "terraform destroy -auto-approve tfplan"
+                        sh "terraform destroy -auto-approve"
                     }
                 }
             }
