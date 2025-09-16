@@ -20,8 +20,11 @@ pipeline {
                     credentialsId: 'aws-access-key-id'
                 ]]) {
                     sh '''
-                    echo "Creating bucket ${BUCKET_NAME}..."
-                    aws s3api create-bucket --bucket ${BUCKET_NAME} --region us-east-1
+                    echo "Creating bucket pract-terraform-122347..."
+
+                    aws s3api head-bucket --bucket pract-terraform-122347 || \
+                    aws s3api create-bucket --bucket pract-terraform-122347 --region us-east-1
+                    
                     '''
                 }
             }
