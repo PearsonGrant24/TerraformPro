@@ -15,9 +15,8 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 resource "aws_s3_object" "index" {
-  bucket = aws_s3_bucket.s3.bucket
-  key    = "index.html"
-  source = "${path.module}/index.html"
-  acl    = "public-read"
+  bucket       = aws_s3_bucket.s3.bucket
+  key          = "index.html"
+  source       = "${path.module}/index.html"
   content_type = "text/html"
 }
