@@ -22,6 +22,10 @@ pipeline {
 
         stage('Create s3 bucket of not existing'){
             steps {
+                withCredentials([
+                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
                 sh '''
                     if ! aws s3api head-bucket --bucket pract-terraform-122347 2>/dev/null; then
                         echo "Creating bucket pract-terraform-122347........."
@@ -31,6 +35,7 @@ pipeline {
                         echo "bucket already extxt, skipping......"
                     fi
                     '''
+                }
                 }
             }
        
