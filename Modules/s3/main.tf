@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "s3" {
   bucket = var.bucket_name
 
   tags = {
-    Name = "Practice-tf-bucket-321"
+    Name = "pract-dev-website"
   }
 }
 
@@ -11,6 +11,5 @@ resource "aws_s3_bucket_website_configuration" "website" {
 
     index_document {
       suffix = "index.html"
-    }
-  
+    }  
 }
