@@ -13,20 +13,20 @@ pipeline {
 
     stages {
                 
-
-        stage('Create s3 bucket of not existing'){
+        stage('Create s3 bucket of not existing') {
             steps {
-                withCredentials([
-                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
-                ]) {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-access-key-id'
+                ]]) {
                     sh '''
-                        aws s3api head-bucket --bucket pract-terraform-122347 || \
-                        aws s3api create-bucket --bucket pract-terraform-122347 --region us-east-1
+                    echo "Creating bucket ${BUCKET_NAME}..."
+                    aws s3api create-bucket --bucket ${BUCKET_NAME} --region us-east-1
                     '''
-                    }
                 }
             }
+        }
+
        
         stage('Terraform Init') {
             steps {
