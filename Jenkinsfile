@@ -13,11 +13,11 @@ pipeline {
 
     stages {
                 
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         git branch: 'main', url: 'https://github.com/PearsonGrant24/TerraformPro.git'
+        //     }
+        // }
 
         stage('Create s3 bucket of not existing'){
             steps {
