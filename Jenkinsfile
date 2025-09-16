@@ -7,11 +7,11 @@ pipeline {
     }
 
     environment {
-        ENV = "dev" // Or parameterize this
+        ENV = "dev" //
+        AWS_DEFAULT_REGION = "us-east-1"
     }
 
     stages {
-
                 
         stage('Checkout') {
             steps {
@@ -21,15 +21,20 @@ pipeline {
 
         stage('Create s3 bucket of not existing'){
             steps {
+                withCredentials([
+                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]){
                 sh '''
                     if ! aws s3api head-bucket --bucket pract-terraform-122347 2>/dev/null; then
                         echo "Creating bucket pract-terraform-122347........."
                         aws s3api create-bucket --bucket pract-terraform-122347 --region us-east-1
 
                     else
-                        echo "bucket already extxt, skipping......"
+                        echo "bucket already exist, skipping......"
                     fi
                     '''
+                    }
                 }
             }
        
