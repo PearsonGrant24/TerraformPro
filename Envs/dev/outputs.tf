@@ -16,7 +16,7 @@ output "rds_instance_id" {
     value = module.rds.aws_db_instance_id
 }
 
-output "s3_bucket_id" {
-#   value = module.s3.bucket_id
-    value = module.s3.aws_s3_bucket
-}
+# output "s3_bucket_id" {
+# #   value = module.s3.bucket_id
+#     value = module.s3.aws_s3_bucket
+# }
