@@ -33,7 +33,7 @@ pipeline {
        
         stage('Terraform Init') {
             steps {
-                withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                     dir("Envs/${ENV}") {
                         sh "terraform init"
                     }
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                     dir("Envs/${ENV}") {
                         sh "terraform plan -var-file=terraform.tfvars -out=tfplan"
                     }
