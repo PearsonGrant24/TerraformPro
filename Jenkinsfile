@@ -30,15 +30,54 @@ pipeline {
             }
         }
 
-
-        stage('Terraform Destroy') {
+       
+        stage('Terraform Init') {
             steps {
                 withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                     dir("Envs/${ENV}") {
-                        sh "terraform destroy -auto-approve"
+                        sh "terraform init"
                     }
                 }
             }
         }
+
+        stage('Terraform Plan') {
+            steps {
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
+                    dir("Envs/${ENV}") {
+                        sh "terraform plan -var-file=terraform.tfvars -out=tfplan"
+                    }
+                }
+            }        }
+
+        stage('Approval for Prod') {
+            when {
+                expression { return ENV == "prod" }
+            }
+            steps {
+                input message: "Approve deployment to PROD?"
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
+                    dir("Envs/${ENV}") {
+                        sh "terraform apply -auto-approve tfplan"
+                    }
+                }
+            }
+        }
+
+        stage('Show outputs'){
+            steps{
+                dir("Envs/${ENV}") {
+                        sh "terraform output"
+                    }
+            }
+        }
+        
+
+        
     }
 }

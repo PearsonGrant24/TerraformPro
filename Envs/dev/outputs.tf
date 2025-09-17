@@ -20,3 +20,22 @@ output "rds_instance_id" {
 # #   value = module.s3.bucket_id
 #     value = module.s3.aws_s3_bucket
 # }
+# output "s3_website_endpoint" {
+#   description = "The website endpoint of the S3 bucket"
+#   value       = aws_s3_bucket_website_configuration.website.website_endpoint
+
+# }
+
+output "s3_website_url" {
+    description = "s3 static website"
+    value = module.s3.s3_website_endpoint
+  
+}
+
+output "name" {
+    value = module.grafana.grafana_url
+}
+
+output "prometheus_url" {
+  value = module.prometheus.prometheus_url
+}
