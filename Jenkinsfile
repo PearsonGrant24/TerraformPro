@@ -71,6 +71,7 @@ pipeline {
 
         stage('Show outputs'){
             steps{
+                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1') {
                 dir("Envs/${ENV}") {
                         sh "terraform output"
                     }
