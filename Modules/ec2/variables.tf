@@ -12,3 +12,8 @@ variable "subnet_id" {
     description = "Subnet id for aws ec2 instance"
     type = string  
 }
+
+variable "key_name" {
+  description = "key fname for grafana"
+  type = string
+}

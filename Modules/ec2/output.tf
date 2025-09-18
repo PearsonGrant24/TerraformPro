@@ -1,3 +1,13 @@
 output "instance_id" {
     value = aws_instance.web.id
 }
+
+output "grafana_url" {
+    description = "value"
+    value = "http://${aws_instance.monitor.public_dns}:3000"
+  
+}
+
+output "prometheus_url" {
+  value = "http://${aws_instance.monitor.public_dns}:9090"
+}

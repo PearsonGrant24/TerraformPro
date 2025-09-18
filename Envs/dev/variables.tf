@@ -85,7 +85,7 @@ variable "bucket_name" {
 }
 
 # grafana
-variable "my-aws-key" {
-  description = "key for grafana"
-  type = string
-}
+# variable "my-aws-key" {
+#   description = "key for grafana"
+#   type = string
+# }

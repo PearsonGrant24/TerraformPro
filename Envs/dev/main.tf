@@ -40,13 +40,3 @@ module "s3" {
   
 }
 
-module "prometheus" {
-  source   = "../../Modules/prometheus"
-  key_name = "my-aws-key"
-}
-
-module "grafana" {
-  source = "../../Modules/grafana"
-
-  key_name = var.my-aws-key
-}

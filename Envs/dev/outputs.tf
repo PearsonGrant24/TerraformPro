@@ -16,26 +16,17 @@ output "rds_instance_id" {
     value = module.rds.aws_db_instance_id
 }
 
-# output "s3_bucket_id" {
-# #   value = module.s3.bucket_id
-#     value = module.s3.aws_s3_bucket
-# }
-# output "s3_website_endpoint" {
-#   description = "The website endpoint of the S3 bucket"
-#   value       = aws_s3_bucket_website_configuration.website.website_endpoint
-
-# }
-
 output "s3_website_url" {
     description = "s3 static website"
     value = module.s3.s3_website_endpoint
   
 }
 
-output "name" {
-    value = module.grafana.grafana_url
+output "grafana" {
+    # value = module.ec2.grafana_url
+    value = "http://${aws_instance.monitor.public_ip}:3000"
 }
 
 output "prometheus_url" {
-  value = module.prometheus.prometheus_url
+  value = "http://${module.ec2.prometheus_url.public_ip}:9090"
 }
