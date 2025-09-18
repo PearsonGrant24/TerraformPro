@@ -24,9 +24,9 @@ output "s3_website_url" {
 
 output "grafana" {
     # value = module.ec2.grafana_url
-    value = "http://${aws_instance.monitor.public_ip}:3000"
+    value = "http://${module.ec2.grafana_url.public_ip}:3000"
 }
 
 output "prometheus_url" {
-  value = "http://${module.ec2.prometheus_url.public_ip}:9090"
+  value = "http://${module.ec2.public_ip}:9090"
 }
