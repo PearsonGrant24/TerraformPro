@@ -84,7 +84,7 @@ pipeline {
             steps{
                 withAWS(credentials: 'aws-access-key-id', region: 'us-east-1'){
                     dir("Envs/${ENV}") {
-                            sh "terraform Destroy -auto-approve "
+                            sh "terraform destroy -auto-approve "
                         }
                 }
             }
