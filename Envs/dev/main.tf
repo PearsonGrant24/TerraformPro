@@ -16,6 +16,7 @@ module "ec2" {
   ami_id = var.ami_id
   instance_type = var.instance_type
   subnet_id = module.vpc.subnets_ids[0]
+  key_name = var.key_name
 }
 
 module "rds" {
