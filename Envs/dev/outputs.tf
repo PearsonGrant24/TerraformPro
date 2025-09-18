@@ -28,5 +28,5 @@ output "grafana" {
 }
 
 output "prometheus_url" {
-  value = "http://${module.ec2.public_ip}:9090"
+  value = "http://${module.ec2.prometheus_url.public_ip}:9090"
 }
