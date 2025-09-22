@@ -88,3 +88,14 @@ variable "key_name" {
   description = "key fname for grafana"
   type = string
 }
+
+variable "allowed_ports" {
+  description = "list of ports inbound"
+  type = list(number)
+  
+}
+
+variable "allowed_cidr_blocks" {
+  description = "CIDR blocks allowed to access the instance"
+  type = list(string)  
+}

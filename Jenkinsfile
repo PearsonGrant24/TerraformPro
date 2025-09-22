@@ -80,14 +80,14 @@ pipeline {
         }   
         
 
-        stage('Destroy infr'){
-            steps{
-                withAWS(credentials: 'aws-access-key-id', region: 'us-east-1'){
-                    dir("Envs/${ENV}") {
-                            sh "terraform destroy -auto-approve "
-                        }
-                }
-            }
-        }  
+        // stage('Destroy infr'){
+        //     steps{
+        //         withAWS(credentials: 'aws-access-key-id', region: 'us-east-1'){
+        //             dir("Envs/${ENV}") {
+        //                     sh "terraform destroy -auto-approve "
+        //                 }
+        //         }
+        //     }
+        // }  
     }
 }

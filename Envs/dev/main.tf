@@ -17,6 +17,8 @@ module "ec2" {
   instance_type = var.instance_type
   subnet_id = module.vpc.subnets_ids[0]
   key_name = var.key_name
+  allowed_ports = var.allowed_ports
+  allowed_cidr_blocks = var.allowed_cidr_blocks
 }
 
 module "rds" {
