@@ -29,7 +29,7 @@ module "rds" {
     source = "../../Modules/rds"
 
     db_subnet_ids     = module.vpc.public_subnet_ids
-    db_sg_id = module.vpc.aws_db_instance.db_sg_id
+    # db_sg_id = module.vpc.aws_db_instance.db_sg_id
     proApp_project = "pract"
     allocated_storage = var.allocated_storage
     storage_type = var.storage_type
