@@ -43,15 +43,3 @@ variable "parameter_group_name" {
     description = "parameter group to associate with"
   
 }
-
-variable "db_subnet_ids" {
-  type = list(string)
-}
-
-variable "db_sg_id" {
-  type = string
-  
-}
-variable "proApp_project" {
-  type = string
-}
