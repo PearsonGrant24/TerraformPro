@@ -30,3 +30,9 @@ output "grafana" {
 output "prometheus_url" {
   value = "http://${module.ec2.instance_id}:9090"
 }
+
+
+output "ec2_vpc_id" {
+  description = "VPC ID used by the EC2 instance"
+  value       = module.ec2.subnet_vpc_id
+}

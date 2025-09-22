@@ -7,7 +7,7 @@ data "aws_subnet" "selected" {
 resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins-security-group"
   description = "Security Group for Jenkins/Prometheus/Grafana"
-  vpc_id      = var.aws_subnet.selected.vpc_id
+  vpc_id      = data.aws_subnet.selected.vpc_id
   # Dynamically create ingress rules for each port
   ingress = [
     for port in var.allowed_ports : {
