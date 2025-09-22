@@ -14,7 +14,7 @@ username            = "devuser"
 password            = "devpassword"
 parameter_group_name= "default.mysql5.7"
 bucket_name         = "pract-dev-website"
-key_name            = "Practkey"
+key_name            = "NewKey"
 allowed_ports       = [22, 3000, 9090]
 allowed_cidr_blocks = ["0.0.0.0/0"]
 
