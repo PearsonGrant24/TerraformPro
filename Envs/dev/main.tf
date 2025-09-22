@@ -24,6 +24,9 @@ module "ec2" {
 module "rds" {
     source = "../../Modules/rds"
 
+    db_subnet_ids     = module.vpc.public_subnets_ids
+    db_sg_id = module.ec2
+    proApp_project = "pract"
     allocated_storage = var.allocated_storage
     storage_type = var.storage_type
     engine = var.engine
