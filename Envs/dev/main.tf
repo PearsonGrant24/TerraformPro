@@ -19,13 +19,17 @@ module "ec2" {
   key_name = var.key_name
   allowed_ports = var.allowed_ports
   allowed_cidr_blocks = var.allowed_cidr_blocks
+
+  # vpc_security_group_ids = [module.ec2_sg.id]
+  # vpc_security_
+
 }
 
 module "rds" {
     source = "../../Modules/rds"
 
-    db_subnet_ids     = module.vpc.public_subnets_ids
-    db_sg_id = module.ec2
+    db_subnet_ids     = module.vpc.public_subnet_ids
+    db_sg_id = module.rds_instance_id
     proApp_project = "pract"
     allocated_storage = var.allocated_storage
     storage_type = var.storage_type
@@ -36,6 +40,7 @@ module "rds" {
     username = var.username
     password = var.password
     parameter_group_name = var.parameter_group_name    
+    
   
 }
 
