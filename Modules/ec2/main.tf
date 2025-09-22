@@ -43,6 +43,7 @@ resource "aws_instance" "monitor" {
   subnet_id     = var.subnet_id
   key_name      = var.key_name
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]  # attaching  SG here
+  associate_public_ip_address = true
 
   user_data = <<-EOF
               #!/bin/bash
