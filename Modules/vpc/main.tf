@@ -23,17 +23,19 @@ resource "aws_internet_gateway" "igw" {
 # Public Subnets
 # ----------------------
 resource "aws_subnet" "public" {
+  for_each = { for idx, cidr in var.public_subnets : idx => cidr }
+
   count             = length(var.public_subnets)
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.public_subnets[count.index]
-  availability_zone = var.availability_zones[count.index]
+  availability_zone = var.availability_zones[tonumber(each.key)]
 
   map_public_ip_on_launch = true
 
   depends_on = [ aws_vpc.main ]
 
   tags = {
-    Name = "${var.project_name}-public-${count.index}"
+    Name = "${var.project_name}-public-${each.key}"
   }
 }
 
@@ -61,10 +63,12 @@ resource "aws_route_table_association" "public_assoc" {
 # Private Subnets
 # ----------------------
 resource "aws_subnet" "private" {
+  for_each = { for idx, cidr in var.private_subnets : idx => cidr }
+
   count             = length(var.private_subnets)
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnets[count.index]
-  availability_zone = var.availability_zones[count.index]
+  availability_zone = var.availability_zones[tonumber(each.key)]
   # element(var.availabilty_zones, count.index)
 
   map_public_ip_on_launch = false
@@ -72,7 +76,7 @@ resource "aws_subnet" "private" {
   depends_on = [ aws_vpc.main ]
 
   tags = {
-    Name = "${var.project_name}-private-${count.index}"
+    Name = "${var.project_name}-private-${each.key}"
   }
 }
 
