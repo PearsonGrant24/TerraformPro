@@ -13,13 +13,13 @@ variable "availabilty_zones" {
   type = list(string)
 }
 
-variable "project_name" {
-  description = "Name prefix for resources (used in tags)"
-  type        = string
-  default     = "practice-project"  # you can override in dev/terraform.tfvars
-}
+# variable "project_name" {
+#   description = "Name prefix for resources (used in tags)"
+#   type        = string
+#   default     = "practice-project"  # you can override in dev/terraform.tfvars
+# }
 
-variable "public_subnet_id" {
-  description = "The ID of the public subnet to associate with the route table"
-  type        = string
-}
+# variable "public_subnet_id" {
+#   description = "The ID of the public subnet to associate with the route table"
+#   type        = string
+# }

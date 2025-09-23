@@ -100,9 +100,9 @@ variable "allowed_cidr_blocks" {
   type = list(string)  
 }
 
-variable "public_subnet_id" {
-  description = "The ID of the public subnet to associate with the route table"
-  type        = string
-}
+# variable "public_subnet_id" {
+#   description = "The ID of the public subnet to associate with the route table"
+#   type        = string
+# }
 
 

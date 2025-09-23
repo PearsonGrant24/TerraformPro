@@ -8,7 +8,7 @@ module "vpc" {
   cidr_block = var.cidr_block
   subnets = var.subnets
   availabilty_zones = var.availabilty_zones
-  public_subnet_id = var.public_subnet_id
+  # public_subnet_id = var.public_subnet_id
 }
 
 
