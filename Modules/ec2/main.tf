@@ -1,7 +1,7 @@
 # Data source to fetch subnet details
-data "aws_subnet" "selected" {
-  id = var.subnet_id
-}
+# data "aws_subnet" "selected" {
+#   id = var.subnet_id
+# }
 
 
 resource "aws_security_group" "jenkins_sg" {
@@ -46,7 +46,7 @@ resource "aws_security_group" "jenkins_sg" {
 resource "aws_instance" "monitor" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
-  subnet_id                   = var.subnet_id
+  subnet_id = module.vpc.public_subnet_ids[0]
   key_name                    = var.key_name
   vpc_security_group_ids      = [aws_security_group.jenkins_sg.id]  # attaching  SG here
   associate_public_ip_address = true

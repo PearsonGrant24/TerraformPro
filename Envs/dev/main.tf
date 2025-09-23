@@ -29,10 +29,11 @@ locals {
 
 module "ec2" {
   source                 = "../../Modules/ec2"
+
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.key_name
-  subnet_id              = local.public_subnet_id     # <-- using local here
+  # subnet_id              = local.public_subnet_id     # <-- using local here
   allowed_ports          = var.allowed_ports
   allowed_cidr_blocks    = var.allowed_cidr_blocks
   project_name           = var.project_name
