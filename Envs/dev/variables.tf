@@ -4,20 +4,20 @@ variable "regionx" {
     default = "us-east-1"  
 }
 
-variable "cidr_block" {
-  description = "aws cidr block"
-  type = string
-}
+# variable "cidr_block" {
+#   description = "aws cidr block"
+#   type = string
+# }
 
 # variable "subnets" {
 #   description = "dev subnet"
 #   type = list(string)
 # }
 
-variable "availability_zones" {
-  description = "azs fo dev"
-  type = list(string)
-}
+# variable "availability_zones" {
+#   description = "azs fo dev"
+#   type = list(string)
+# }
 
 # variable "ami_id" {
 #   description = "dev ami id"
