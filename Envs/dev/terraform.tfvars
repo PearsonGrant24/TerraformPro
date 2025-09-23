@@ -18,3 +18,6 @@ allowed_cidr_blocks = ["0.0.0.0/0"]
 
 # Project Tag
 project_name = "dev-environment"
+
+# bucket
+bucket_name         = "pract-dev-website"
