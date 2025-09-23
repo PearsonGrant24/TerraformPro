@@ -30,6 +30,8 @@ resource "aws_subnet" "public" {
 
   map_public_ip_on_launch = true
 
+  depends_on = [ aws_vpc.main ]
+
   tags = {
     Name = "${var.project_name}-public-${count.index}"
   }
@@ -66,6 +68,8 @@ resource "aws_subnet" "private" {
   # element(var.availabilty_zones, count.index)
 
   map_public_ip_on_launch = false
+
+  depends_on = [ aws_vpc.main ]
 
   tags = {
     Name = "${var.project_name}-private-${count.index}"
