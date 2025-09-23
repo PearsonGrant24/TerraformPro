@@ -16,10 +16,10 @@ resource "aws_security_group" "jenkins_sg" {
       to_port          = port
       protocol         = "tcp"
       cidr_blocks      = var.allowed_cidr_blocks
-      # ipv6_cidr_blocks = []
-      # prefix_list_ids  = []
-      # security_groups  = []
-      # self             = false
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      security_groups  = []
+      self             = false
     }
   ]
 
@@ -28,6 +28,12 @@ resource "aws_security_group" "jenkins_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+     ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      security_groups  = []
+      self             = false
+    
+
   }
 
   tags = {
