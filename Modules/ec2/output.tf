@@ -12,10 +12,10 @@ output "prometheus_url" {
   value = "http://${aws_instance.monitor.public_dns}:9090"
 }
 
-# output "subnet_vpc_id" {
-#   description = "The VPC ID associated with the selected subnet"
-#   value       = data.aws_subnet.selected.vpc_id
-# }
+output "subnet_vpc_id" {
+  description = "The VPC ID associated with the selected subnet"
+  value       = data.aws_subnet.selected.vpc_id
+}
 
 output "monitor_public_ip" {
   description = "Public IP of the monitoring EC2 instance"

@@ -1,13 +1,13 @@
 # Data source to fetch subnet details
-# data "aws_subnet" "selected" {
-#   id = var.subnet_id
-# }
+data "aws_subnet" "selected" {
+  id = var.subnet_id
+}
 
 
 resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins-security-group"
   description = "Security Group for Jenkins/Prometheus/Grafana"
-  # vpc_id      = data.aws_subnet.selected.vpc_id
+  vpc_id      = data.aws_subnet.selected.vpc_id
   # Dynamically create ingress rules for each port
   ingress = [
     for port in var.allowed_ports : {
@@ -46,7 +46,7 @@ resource "aws_security_group" "jenkins_sg" {
 resource "aws_instance" "monitor" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
-  subnet_id = module.vpc.public_subnet_ids[0]
+  subnet_id                   = var.subnet_id
   key_name                    = var.key_name
   vpc_security_group_ids      = [aws_security_group.jenkins_sg.id]  # attaching  SG here
   associate_public_ip_address = true
