@@ -14,7 +14,7 @@ variable "cidr_block" {
 #   type = list(string)
 # }
 
-variable "availabilty_zones" {
+variable "availability_zones" {
   description = "azs fo dev"
   type = list(string)
 }
