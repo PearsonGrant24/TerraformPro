@@ -28,12 +28,6 @@ resource "aws_security_group" "jenkins_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-     ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      security_groups  = []
-      self             = false
-    
-
   }
 
   tags = {
@@ -44,11 +38,11 @@ resource "aws_security_group" "jenkins_sg" {
 
 
 resource "aws_instance" "monitor" {
-  ami                         = var.ami_id
-  instance_type               = var.instance_type
-  subnet_id                   = var.subnet_id
-  key_name                    = var.key_name
-  vpc_security_group_ids      = [aws_security_group.jenkins_sg.id]  # attaching  SG here
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_id
+  key_name      = var.key_name
+  vpc_security_group_ids = [aws_security_group.jenkins_sg.id]  # attaching  SG here
   associate_public_ip_address = true
 
   user_data = <<-EOF
@@ -76,5 +70,3 @@ resource "aws_instance" "monitor" {
     delete_on_termination = true
   }
 }
-
-

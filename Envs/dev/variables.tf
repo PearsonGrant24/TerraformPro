@@ -4,33 +4,33 @@ variable "regionx" {
     default = "us-east-1"  
 }
 
-# variable "cidr_block" {
-#   description = "aws cidr block"
-#   type = string
-# }
+variable "cidr_block" {
+  description = "aws cidr block"
+  type = string
+}
 
-# variable "subnets" {
-#   description = "dev subnet"
-#   type = list(string)
-# }
+variable "subnets" {
+  description = "dev subnet"
+  type = list(string)
+}
 
-# variable "availability_zones" {
-#   description = "azs fo dev"
-#   type = list(string)
-# }
+variable "availabilty_zones" {
+  description = "azs fo dev"
+  type = list(string)
+}
 
-# variable "ami_id" {
-#   description = "dev ami id"
-#   type = string  
-# }
+variable "ami_id" {
+  description = "dev ami id"
+  type = string  
+}
 
-# variable "instance_type" {
-#   description = "instance type"
-#   type = string
-# }
+variable "instance_type" {
+  description = "instance type"
+  type = string
+}
 
 
-# # Rds
+# Rds
 # variable "allocated_storage" {
 #     description = "size the db in GB"
 #     type = number
@@ -77,81 +77,32 @@ variable "regionx" {
   
 # }
 
-# # s3
+# s3
 
 variable "bucket_name" {
   description = "The name of the S3 bucket"
   type        = string
 }
 
-# variable "key_name" {
-#   description = "key fname for grafana"
-#   type = string
-# }
-
-# variable "allowed_ports" {
-#   description = "list of ports inbound"
-#   type = list(number)
-  
-# }
-
-# variable "allowed_cidr_blocks" {
-#   description = "CIDR blocks allowed to access the instance"
-#   type = list(string)  
-# }
-
-# variable "public_subnet_id" {
-#   description = "The ID of the public subnet to associate with the route table"
-#   type        = string
-# }
-
-
-# envs/dev/variables.tf
-
-variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
-}
-
-variable "public_subnets" {
-  type    = list(string)
-  default = ["10.0.1.0/24"]
-}
-
-variable "private_subnets" {
-  type    = list(string)
-  default = ["10.0.2.0/24"]
-}
-
-variable "availability_zones" {
-  type    = list(string)
-  default = ["us-east-1a"]
-}
-
-variable "project_name" {
-  type    = string
-  default = "pract"
-}
-
-variable "ami_id" {
-  type = string
-}
-
-variable "instance_type" {
-  type    = string
-  default = "t3.micro"
-}
-
 variable "key_name" {
+  description = "key fname for grafana"
   type = string
 }
 
 variable "allowed_ports" {
+  description = "list of ports inbound"
   type = list(number)
-  default = [22, 3000, 9090]
+  
 }
 
 variable "allowed_cidr_blocks" {
-  type = list(string)
-  default = ["0.0.0.0/0"]
+  description = "CIDR blocks allowed to access the instance"
+  type = list(string)  
 }
+
+variable "public_subnet_id" {
+  description = "The ID of the public subnet to associate with the route table"
+  type        = string
+}
+
+

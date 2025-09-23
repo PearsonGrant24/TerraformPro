@@ -1,19 +1,25 @@
 variable "cidr_block" {
-  type = string
+    description = "cidr block for tthe vpc"
+    type = string
 }
 
-variable "public_subnets" {
+variable "subnets" {
+  description = "list  of subnets"
   type = list(string)
 }
 
-variable "private_subnets" {
-  type = list(string)
-}
-
-variable "availability_zones" {
+variable "availabilty_zones" {
+  description = "list of AZs"
   type = list(string)
 }
 
 variable "project_name" {
-  type = string
+  description = "Name prefix for resources (used in tags)"
+  type        = string
+  default     = "practice-project"  # you can override in dev/terraform.tfvars
+}
+
+variable "public_subnet_id" {
+  description = "The ID of the public subnet to associate with the route table"
+  type        = string
 }

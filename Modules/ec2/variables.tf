@@ -8,10 +8,10 @@ variable "instance_type" {
     type = string
 }
 
-# variable "subnet_id" {
-#     description = "Subnet id for aws ec2 instance"
-#     type = string  
-# }
+variable "subnet_id" {
+    description = "Subnet id for aws ec2 instance"
+    type = string  
+}
 
 variable "key_name" {
   description = "key fname for grafana"
@@ -19,21 +19,14 @@ variable "key_name" {
 }
 
 
-variable "subnet_id" {
-  type = string
-}
-
-variable "project_name" {
-  type = string
-}
-
 variable "allowed_ports" {
+  description = "A list f ports allowed inbound traffic on"
   type = list(number)
 }
 
 variable "allowed_cidr_blocks" {
+  description = "CIDR blocks allowed to access the instance"
   type = list(string)
 }
-
 
 

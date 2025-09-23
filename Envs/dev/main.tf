@@ -3,40 +3,25 @@ provider "aws" {
 }
 
 module "vpc" {
-  source             = "../../Modules/vpc"
-  cidr_block         = var.vpc_cidr
-  public_subnets     = var.public_subnets       # lists you pass in via tfvars
-  private_subnets    = var.private_subnets
-  availability_zones = var.availability_zones
-  project_name       = var.project_name
-}
+  source = "../../Modules/vpc"
 
-# pick a public subnet to use for EC2
-locals {
-  # pick the first public subnet id (safer: check length before using in production)
-  public_subnet_id = length(module.vpc.public_subnet_ids) > 0 ? module.vpc.public_subnet_ids[0] : null
+  cidr_block = var.cidr_block
+  subnets = var.subnets
+  availabilty_zones = var.availabilty_zones
+  public_subnet_id = var.public_subnet_id
 }
 
 
-# sanity guard (optional): fail early if no public subnet found
-# (Uncomment this if you want Terraform to error early)
-# resource "null_resource" "require_public_subnet" {
-#   count = local.public_subnet_id == null ? 1 : 0
-#   provisioner "local-exec" {
-#     command = "echo 'No public subnet available. Aborting.' && exit 1"
-#   }
-# }
 
 module "ec2" {
-  source                 = "../../Modules/ec2"
-  
-  ami_id                 = var.ami_id
-  instance_type          = var.instance_type
-  key_name               = var.key_name
-  subnet_id              = local.public_subnet_id     # <-- using local here
-  allowed_ports          = var.allowed_ports
-  allowed_cidr_blocks    = var.allowed_cidr_blocks
-  project_name           = var.project_name
+  source = "../../Modules/ec2"
+
+  ami_id = var.ami_id
+  instance_type = var.instance_type
+  subnet_id = module.vpc.subnets_ids[0]
+  key_name = var.key_name
+  allowed_ports = var.allowed_ports
+  allowed_cidr_blocks = var.allowed_cidr_blocks
 }
 
 # module "rds" {
