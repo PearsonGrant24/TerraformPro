@@ -25,9 +25,9 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "public" {
   for_each = { for idx, cidr in var.public_subnets : idx => cidr }
 
-  count             = length(var.public_subnets)
+  # count             = length(var.public_subnets)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.public_subnets[count.index]
+  cidr_block        = each.value
   availability_zone = var.availability_zones[tonumber(each.key)]
 
   map_public_ip_on_launch = true
@@ -65,9 +65,9 @@ resource "aws_route_table_association" "public_assoc" {
 resource "aws_subnet" "private" {
   for_each = { for idx, cidr in var.private_subnets : idx => cidr }
 
-  count             = length(var.private_subnets)
+  # count             = length(var.private_subnets)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnets[count.index]
+  cidr_block        = each.value
   availability_zone = var.availability_zones[tonumber(each.key)]
   # element(var.availabilty_zones, count.index)
 
