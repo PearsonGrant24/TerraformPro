@@ -18,7 +18,7 @@ module "ec2" {
 
   ami_id = var.ami_id
   instance_type = var.instance_type
-  subnet_id = module.vpc.vpc_id
+  subnet_id = module.vpc.subnet_ids[0]
   key_name = var.key_name
   allowed_ports = var.allowed_ports
   allowed_cidr_blocks = var.allowed_cidr_blocks
