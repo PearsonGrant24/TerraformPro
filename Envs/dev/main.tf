@@ -20,12 +20,12 @@ locals {
 
 # sanity guard (optional): fail early if no public subnet found
 # (Uncomment this if you want Terraform to error early)
-resource "null_resource" "require_public_subnet" {
-  count = local.public_subnet_id == null ? 1 : 0
-  provisioner "local-exec" {
-    command = "echo 'No public subnet available. Aborting.' && exit 1"
-  }
-}
+# resource "null_resource" "require_public_subnet" {
+#   count = local.public_subnet_id == null ? 1 : 0
+#   provisioner "local-exec" {
+#     command = "echo 'No public subnet available. Aborting.' && exit 1"
+#   }
+# }
 
 module "ec2" {
   source                 = "../../Modules/ec2"
