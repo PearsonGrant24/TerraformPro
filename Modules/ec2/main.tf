@@ -65,8 +65,8 @@ resource "aws_instance" "monitor" {
               mkdir -p /etc/prometheus /var/lib/prometheus
 
               wget https://github.com/prometheus/prometheus/releases/download/v${PROM_VERSION}/prometheus-${PROM_VERSION}.linux-amd64.tar.gz
-              tar -xvf prometheus-${PROM_VERSION}.linux-amd64.tar.gz
-              cd prometheus-${PROM_VERSION}.linux-amd64
+              tar -xvf prometheus-$$PROM_VERSION.linux-amd64.tar.gz
+              cd prometheus-$$PROM_VERSION.linux-amd64
 
               cp prometheus /usr/local/bin/
               cp promtool /usr/local/bin/
