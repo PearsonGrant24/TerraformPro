@@ -47,28 +47,75 @@ resource "aws_instance" "monitor" {
 
   user_data = <<-EOF
               #!/bin/bash
+              set -e
+ 
+              # Update system
+              apt-get update -y
+              apt-get upgrade -y
 
-              sudo apt update -y
-              wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
-              echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
-              sudo apt update -y
-              sudo apt install temurin-17-jdk -y
-              /usr/bin/java --version
+              # Install required packages
+              apt-get install -y wget curl tar gnupg2 software-properties-common
 
-              sudo apt-get update
-              sudo apt-get install docker.io -y
-              sudo usermod -aG docker ubuntu
-              sudo usermod -aG docker jenkins
-              newgrp docker
-              sudo chmod 777 /var/run/docker.sock
-              sudo systemctl restart jenkins
-              docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+              ########################################
+              # Install Prometheus
+              ########################################
+              PROM_VERSION="2.54.0"
+              cd /opt
+              useradd --no-create-home --shell /bin/false prometheus || true
+              mkdir -p /etc/prometheus /var/lib/prometheus
 
-              # Run Prometheus
-              docker run -d --name prometheus -p 9090:9090 prom/prometheus
+              wget https://github.com/prometheus/prometheus/releases/download/v${PROM_VERSION}/prometheus-${PROM_VERSION}.linux-amd64.tar.gz
+              tar -xvf prometheus-${PROM_VERSION}.linux-amd64.tar.gz
+              cd prometheus-${PROM_VERSION}.linux-amd64
 
-              # Run Grafana
-              docker run -d --name=grafana -p 3000:3000 grafana/grafana
+              cp prometheus /usr/local/bin/
+              cp promtool /usr/local/bin/
+              cp -r consoles /etc/prometheus
+              cp -r console_libraries /etc/prometheus
+              cp prometheus.yml /etc/prometheus/
+
+              chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
+              chown prometheus:prometheus /usr/local/bin/prometheus /usr/local/bin/promtool
+
+              # Create systemd service for Prometheus
+              cat <<EOT > /etc/systemd/system/prometheus.service
+              [Unit]
+              Description=Prometheus Monitoring
+              Wants=network-online.target
+              After=network-online.target
+
+              [Service]
+              User=prometheus
+              Group=prometheus
+              Type=simple
+              ExecStart=/usr/local/bin/prometheus \\
+                --config.file=/etc/prometheus/prometheus.yml \\
+                --storage.tsdb.path=/var/lib/prometheus/ \\
+                --web.listen-address=0.0.0.0:9090 \\
+                --web.enable-lifecycle
+
+              [Install]
+              WantedBy=multi-user.target
+              EOT
+
+              systemctl daemon-reload
+              systemctl enable prometheus
+              systemctl start prometheus
+
+              ########################################
+              # Install Grafana
+              ########################################
+              apt-get install -y apt-transport-https
+              mkdir -p /etc/apt/keyrings/
+              wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor -o /etc/apt/keyrings/grafana.gpg
+
+              echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" > /etc/apt/sources.list.d/grafana.list
+
+              apt-get update -y
+              apt-get install -y grafana
+
+              systemctl enable grafana-server
+              systemctl start grafana-server
               EOF
 
   tags = {
