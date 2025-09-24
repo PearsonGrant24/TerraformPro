@@ -48,7 +48,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "subnet" {
 
   count             = length(var.subnets)
-  
+
   vpc_id            = aws_vpc.main.id
   cidr_block        = element(var.subnets, count.index)
   availability_zone = element(var.availabilty_zones, count.index)
@@ -78,8 +78,8 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public_assoc" {
-  count          = length(aws_subnet.public)
-  subnet_id      = aws_subnet.public[count.index].id
+  count          = length(aws_subnet.subnet)
+  subnet_id      = aws_subnet.subnet[count.index].id
   route_table_id = aws_route_table.public.id
 }
 
