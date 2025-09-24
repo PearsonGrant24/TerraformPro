@@ -64,7 +64,7 @@ resource "aws_instance" "monitor" {
               useradd --no-create-home --shell /bin/false prometheus || true
               mkdir -p /etc/prometheus /var/lib/prometheus
 
-              wget https://github.com/prometheus/prometheus/releases/download/v${PROM_VERSION}/prometheus-${PROM_VERSION}.linux-amd64.tar.gz
+              wget https://github.com/prometheus/prometheus/releases/download/v$$PROM_VERSION/prometheus-$$PROM_VERSION.linux-amd64.tar.gz
               tar -xvf prometheus-$$PROM_VERSION.linux-amd64.tar.gz
               cd prometheus-$$PROM_VERSION.linux-amd64
 
