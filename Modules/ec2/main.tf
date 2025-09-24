@@ -65,11 +65,11 @@ resource "aws_instance" "monitor" {
               # Download Prometheus (latest stable)
               cd /tmp
               PROM_VERSION="2.54.0"   # <-- latest as of now
-              wget https://github.com/prometheus/prometheus/releases/download/v${PROM_VERSION}/prometheus-${PROM_VERSION}.linux-amd64.tar.gz
+              wget https://github.com/prometheus/prometheus/releases/download/v$$PROM_VERSION/prometheus-$$PROM_VERSION.linux-amd64.tar.gz
 
               # Extract files
-              tar xvf prometheus-${PROM_VERSION}.linux-amd64.tar.gz
-              cd prometheus-${PROM_VERSION}.linux-amd64
+              tar xvf prometheus-$$PROM_VERSION.linux-amd64.tar.gz
+              cd prometheus-$$PROM_VERSION.linux-amd64
 
               # Move binaries
               sudo cp prometheus /usr/local/bin/
