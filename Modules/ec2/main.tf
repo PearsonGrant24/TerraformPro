@@ -36,7 +36,6 @@ resource "aws_security_group" "jenkins_sg" {
 }
 
 
-
 resource "aws_instance" "monitor" {
   ami           = var.ami_id
   instance_type = var.instance_type
@@ -45,7 +44,7 @@ resource "aws_instance" "monitor" {
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]  # attaching  SG here
   associate_public_ip_address = true
 
-  user_data = templatefile("/script.sh", {})
+  user_data = templatefile("./script.sh", {})
   tags = {
     Name = "monitoring-instance"
   }
