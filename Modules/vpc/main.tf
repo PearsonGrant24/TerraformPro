@@ -7,17 +7,17 @@ resource "aws_vpc" "main" {
   }
 }
 
-resource "aws_subnet" "subnet" {
-  count = length(var.subnets)
+# resource "aws_subnet" "subnet" {
+#   count = length(var.subnets)
 
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = element(var.subnets, count.index)
-  availability_zone = element(var.availabilty_zones, count.index)
+#   vpc_id            = aws_vpc.main.id
+#   cidr_block        = element(var.subnets, count.index)
+#   availability_zone = element(var.availabilty_zones, count.index)
   
-  tags = {
-    Name = "pract-subnet-${count.index}"
-  }
-}
+#   tags = {
+#     Name = "pract-subnet-${count.index}"
+#   }
+# }
 
 
 # resource "aws_vpc" "main" {
@@ -30,60 +30,62 @@ resource "aws_subnet" "subnet" {
 #   }
 # }
 
-# # ----------------------
-# # Internet Gateway
-# # ----------------------
-# resource "aws_internet_gateway" "igw" {
-#   vpc_id = aws_vpc.main.id
+# ----------------------
+# Internet Gateway
+# ----------------------
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
 
-#   tags = {
-#     Name = "${var.project_name}-igw"
-#   }
-# }
+  tags = {
+    # Name = "${var.project_name}-igw"
+    name  = "pract-vpc"
+  }
+}
 
-# # ----------------------
-# # Public Subnets
-# # ----------------------
-# resource "aws_subnet" "public" {
-#   for_each = { for idx, cidr in var.public_subnets : idx => cidr }
+# ----------------------
+# Public Subnets
+# ----------------------
+resource "aws_subnet" "subnet" {
 
-#   # count             = length(var.public_subnets)
-#   vpc_id            = aws_vpc.main.id
-#   cidr_block        = each.value
-#   availability_zone = var.availability_zones[tonumber(each.key)]
+  count             = length(var.subnets)
+  
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element(var.subnets, count.index)
+  availability_zone = element(var.availabilty_zones, count.index)
+  map_public_ip_on_launch = true
 
-#   map_public_ip_on_launch = true
+  depends_on = [ aws_vpc.main ]
 
-#   depends_on = [ aws_vpc.main ]
+  tags = {
+    # Name = "${var.project_name}-public-${each.key}"
+    Name = "pract-subnet-${count.index}"
+  }
+}
 
-#   tags = {
-#     Name = "${var.project_name}-public-${each.key}"
-#   }
-# }
+# Route Table for Public Subnets
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
 
-# # Route Table for Public Subnets
-# resource "aws_route_table" "public" {
-#   vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
 
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = aws_internet_gateway.igw.id
-#   }
+  tags = {
+    # Name = "${var.project_name}-public-rt"
+    name = "pract-vpc"
+  }
+}
 
-#   tags = {
-#     Name = "${var.project_name}-public-rt"
-#   }
-# }
+resource "aws_route_table_association" "public_assoc" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
 
-# resource "aws_route_table_association" "public_assoc" {
-#   count          = length(aws_subnet.public)
-#   subnet_id      = aws_subnet.public[count.index].id
-#   route_table_id = aws_route_table.public.id
-# }
-
-# # ----------------------
-# # Private Subnets
-# # ----------------------
+# ----------------------
+# Private Subnets
+# ----------------------
 # resource "aws_subnet" "private" {
 #   for_each = { for idx, cidr in var.private_subnets : idx => cidr }
 
@@ -102,7 +104,7 @@ resource "aws_subnet" "subnet" {
 #   }
 # }
 
-# # Private Route Table (no IGW route here unless you add NAT Gateway later)
+# Private Route Table (no IGW route here unless you add NAT Gateway later)
 # resource "aws_route_table" "private" {
 #   vpc_id = aws_vpc.main.id
 
